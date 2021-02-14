@@ -15,7 +15,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
-  console.log(images);
+  // console.log(images);
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
@@ -23,7 +23,7 @@ const showImages = (images) => {
   images.forEach(image => {
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-    div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
+    div.innerHTML = `<img class="img-fluid img-thumbnail img-selected" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
   });
   toggleSpinner();
@@ -46,7 +46,8 @@ const selectItem = (event, img) => {
   if (item === -1) {
     sliders.push(img);
   } else {
-    alert('Hey, Already added !')
+    toggleImage();    
+    // alert('Hey, Already added !')
   }
 }
 var timer
@@ -80,8 +81,10 @@ const createSlider = () => {
   })
   changeSlide(0)
   timer = setInterval(function () {
-    slideIndex++;
-    changeSlide(slideIndex);
+    if (duration > 0) {
+      slideIndex++;
+      changeSlide(slideIndex);
+    }
   }, duration);
 }
 
@@ -124,13 +127,15 @@ sliderBtn.addEventListener('click', function () {
 })
 
 // Spinner Function
-const toggleSpinner = (show) => {
+const toggleSpinner = () => {
   const spinner = document.getElementById("loading-spinner");
   spinner.classList.toggle('d-none');
 }
 
 // Image Add/Remove Toggle
-const toggleImage = (selected) => {
+const toggleImage = () => {
+  const imageSelect = document.getElementsByClassName("img-selected");
+  console.log(imageSelect);
   
 }
 
